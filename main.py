@@ -1,26 +1,14 @@
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+#from datetime import datetime
+from src.models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/participants.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# database setup
 db = SQLAlchemy(app)
-
-# creates Events table
-class Events(db.Model):
-    _id = db.Column("id", db.Integer, primary_key=True)
-    event_name = db.Column(db.String(50), nullable=False)
-    event_type = db.Column(db.String(20), nullable=False)
-    date_created = db.Column( db.DateTime, default=datetime.utcnow)
-
-    def __init__(self, event_name, event_type):
-        self.event_name = event_name
-        self.event_type = event_type
-
-    def __repr__(self):
-        return '<Task %r' % self.id
+db.init_app(app)
 
 @app.route('/')
 def index():
@@ -36,12 +24,53 @@ def add_events():
         try:    
             db.session.add(new_event)
             db.session.commit()
-            return redirect('/')
+            return redirect('/add-events')
         except:
             return 'There was an issue adding your task.'
     else:
         events = Events.query.order_by(Events.date_created).all()
         return render_template('add-events.html', events=events)
+
+@app.route('/add-participants', methods=['POST', 'GET'])
+def add_participants():
+    if request.method == 'POST':
+        participant_name = request.form['participant-name']
+        event_type = request.form['event-type']
+        member_1 = request.form['member-1']
+        member_2 = request.form['member-2']
+        member_3 = request.form['member-3']
+        member_4 = request.form['member-4']
+        member_5 = request.form['member-5']
+        event_1 = request.form['event-1']
+        event_2 = request.form['event-2']
+        event_3 = request.form['event-3']
+        event_4 = request.form['event-4']
+        event_5 = request.form['event-5']
+        if event_type == 'team':
+        
+            team = Teams(participant_name, event_1, event_2, event_3, event_4, event_5)
+            team_members = TeamMembers(member_1, member_2, member_3, member_4, member_5)
+
+            try:
+                db.session.add(team)
+                db.session.add(team_members)
+                db.session.commit()
+                return redirect('/add-participants')
+            except:
+                return 'There was an issue adding your participant.'
+
+        elif event_type == "individual":
+            individual = Individuals(participant_name, event_1, event_2, event_3, event_4, event_5)
+
+            try:
+                db.session.add(individual)
+                db.session.commit()
+                return redirect('/add-participants')
+            except:
+                return 'There was an issue adding your participant.'
+    else:
+        events = Events.query.order_by(Events.event_name).all()
+        return render_template('add-participants.html', events=events)
 
 if __name__ == "__main__":
     db.create_all()

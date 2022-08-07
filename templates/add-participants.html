@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>TSS - Add Participants</title>
+{% endblock %}
+
+{% block body %}
+<div class="add-participants-content">
+    <p class="participants-description">
+        This form allows you to enter participants into the database. To add a participant,
+        enter their name and select what type of events they are entering for. If 'Team' is
+        selected then add a name for each team member then select the events this team will
+        compete in. If 'Individual' is selected just select up to 5 events. Press 'Save' to
+        save the entry into the database.
+    </p>
+    <form class="add-participants-form">
+        <div class="participant-name-container">
+            <label for="participant-name">Event Name</label>
+            <br>
+            <input id="participant-name" class="single-line-edit" type="text" name="participant-name">
+        </div>
+        <div class="event-type-container">
+            <label for="event-type">Event Type</label>
+            <br>
+            <select id="event-type" name="event-type">  
+                <option value="team">Team</option>
+                <option value="individual">Individual</option>
+            </select>
+        </div>
+        <div class="team-members">
+            <div class="team_members-container">
+                <label for="member-1">Event Name</label>
+                <br>
+                <input id="member-1" class="single-line-edit" type="text" name="member-1">
+            </div>
+            <div class="team_members-container">
+                <label for="member-2">Event Name</label>
+                <br>
+                <input id="member-2" class="single-line-edit" type="text" name="member-2">
+            </div>
+            <div class="team_members-container">
+                <label for="member-3">Event Name</label>
+                <br>
+                <input id="member-3" class="single-line-edit" type="text" name="member-3">
+            </div>
+            <div class="team_members-container">
+                <label for="member-4">Event Name</label>
+                <br>
+                <input id="member-4" class="single-line-edit" type="text" name="member-4">
+            </div>
+            <div class="team_members-container">
+                <label for="member-5">Event Name</label>
+                <br>
+                <input id="member-5" class="single-line-edit" type="text" name="member-5">
+            </div>
+        </div>
+        <div class="events">
+            <div class="events-container">
+                <label for="event-1">Event 1</label>
+                <br>
+                <select id="event-1" name="event-1">
+                    {% for event in events %}
+                    <option value="{{ event.event_name }}">{{ event.event_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="events-container">
+                <label for="event-2">Event 2</label>
+                <br>
+                <select id="event-2" name="event-2">  
+                    {% for event in events %}
+                    <option value="{{ event.event_name }}">{{ event.event_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="events-container">
+                <label for="event-3">Event 3</label>
+                <br>
+                <select id="event-3" name="event-3">  
+                    {% for event in events %}
+                    <option value="{{ event.event_name }}">{{ event.event_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="events-container">
+                <label for="event-4">Event 4</label>
+                <br>
+                <select id="event-4" name="event-4">  
+                    {% for event in events %}
+                    <option value="{{ event.event_name }}">{{ event.event_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="events-container">
+                <label for="event-5">Event 5</label>
+                <br>
+                <select id="event-5" name="event-5">  
+                    {% for event in events %}
+                    <option value="{{ event.event_name }}">{{ event.event_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button class="btn save-participant-btn" type="submit">Save Participant</button>
+    </form>
+</div>
+{% endblock %}

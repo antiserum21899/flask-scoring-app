@@ -5,11 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA Compatible" content="ie=edge">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="javascript" href="{{ url_for('static', filename='js/load_data.js') }}">
         {% block head %}
 
         {% endblock %}
     </head>
     <body>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="home"><a class="link" href="/">Home</a></li>
+                <li class="add-events"><a class="link" href="/add-events">Add Events</a></li>
+                <li class="add-participants"><a class="link" href="add-participants">Add Participants</a></li>
+                <li class="add-event-scores"><a class="link" href="#">Add Event Scores</a></li>
+                <li class="leaderboards"><a class="link" href="#">Leaderboards</a></li>
+            </ul>
+        </nav>
         <h1>Tournament Scoring System</h1>
         {% block body %}
         {% endblock %}
