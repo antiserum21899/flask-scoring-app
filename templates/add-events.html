@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>TSS - Add Events</title>
+{% endblock %}
+
+{% block body %}
+<div class='content'>
+    <h2>Add Events</h2>
+    <p class="events-"> 
+        This form allows you to enter events into the database. To add events to the database,
+        enter an event name into the event name field and select an event type. When you click
+        the 'Add Event' button, the event will appear in the events table below. Click the 'Save
+        Events' button to save to the database.
+    </p>
+    <form class="add-events-form" action="/" method="POST">
+        <div class="event-name-container">
+            <label for="event-name">Event Name</label>
+            <br>
+            <input id="event-name" class="single-line-edit" type="text" name="event-name">
+        </div>
+        <div class="event-type-container">
+            <label for="event-type">Event Type</label>
+            <br>
+            <select id="event-type" name="event-type">  
+                <option value="team">Team</option>
+                <option value="individual">Individual</option>
+            </select>
+        </div>
+        <div class="event-btns">
+            <button class="btn add-event-btn" type="submit">Add Event</button>
+        </div>
+    </form>
+    <h4>Saved Events</h4>
+    <table class="events-table">
+        <tr>
+            <th>Event Name</th>
+            <th>Event Type</th>
+        </tr>
+        <tr>
+        {% for event in events %}
+            <td>{{ event.event_name }}</td>
+            <td>{{ event.event_type }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
